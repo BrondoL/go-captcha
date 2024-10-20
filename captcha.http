@@ -1,0 +1,23 @@
+@hostname = 172.29.8.184
+@port = 8080
+@version = v1
+@host = {{hostname}}:{{port}}/api/{{version}}
+
+# @name generate
+GET http://{{host}}/generate-captcha HTTP/1.1
+###
+
+@captchaID = {{generate.response.body.id}}
+# @name render
+GET http://{{host}}/captcha/{{captchaID}}.png HTTP/1.1
+###
+
+# @name verify
+POST http://{{host}}/verify-captcha HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "{{captchaID}}",
+    "text": "fjueRk"
+}
+###
